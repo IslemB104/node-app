@@ -1,0 +1,26 @@
+node-app:
+1.
+$touch Dockerfile
+$docker build . -t node-app-image
+2.
+$docker run -p 3000:80 node-app-image
+3.
+$ docker run -p 3000:80 --name c1-node f48e97f5fbc9b69f115e57d5583a5b93e40560fbfd965b9c2f8397403c1f7fd5
+$ docker stop c1-node
+$ docker start c1-node
+4.
+$ docker container prune
+$ docker image prune
+$ docker rmi node-app-image
+5.
+$ docker build . -t new-img-node:15
+6.
+$ docker run -p 3000:80 --rm --name c2-node f48e97f5fbc9b69f115e57d5583a5b93e40560fbfd965b9c2f8397403c1f7fd5
+--------------------------------------------------------------------------------------------------------------------
+Dockerfile:
+
+FROM node
+WORKDIR /appjs
+COPY . /appjs
+RUN npm install
+CMD [ "node","server.js" ]
